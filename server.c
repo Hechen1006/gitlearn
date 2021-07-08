@@ -46,10 +46,30 @@ int main()
 		}
 		else
 		{
-			printf("gotten!\n");
 			break;
 		}
 	}
+	char rdbuffer[50],wtbuffer[50];
+	char str[50]="hello from server!\0";
+	strcpy(wtbuffer,str);
+	//for(int i=0;i<10;i++)
+		//printf("%d\n",*(wtbuffer+i));
+	if(write(clientfd,wtbuffer,sizeof(wtbuffer))==-1)
+	{
+		perror("wirite");
+		exit(EXIT_FAILURE);
+	}
+	/*
+	if(read(sockfd,rdbuffer,sizeof(wtbuffer))==-1)
+	{
+		perror("read");
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		printf("rcv from client: %s",rdbuffer);
+	}
+	*/
 	close(clientfd);
 	close(sockfd);
 	return 0;
