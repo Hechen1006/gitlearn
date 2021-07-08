@@ -10,8 +10,9 @@
 
 int main()
 {
-	int sockfd;
-	struct sockaddr_in addr;
+	int sockfd,clientfd;
+	struct sockaddr_in addr, client_addr;
+	int client_len;
 	//socket initialization
 	sockfd=socket(PF_INET,SOCK_STREAM,0);
 	if(sockfd==-1)
@@ -29,12 +30,27 @@ int main()
 		perror("bind");
 		exit(EXIT_FAILURE);
 	}
-
-	if(listen(sockfd,5)==-1)
+	while(1)
 	{
-		perror("listen");
-		exit(EXIT_FAILURE);
+		if(listen(sockfd,5)==-1)
+		{
+			perror("listen");
+			exit(EXIT_FAILURE);
+		}
+		client_len=sizeof(struct sockaddr);
+		clientfd=accept(sockfd,(struct sockaddr *)&client_addr,&client_len);
+		if(clientfd==-1)
+		{
+			perror("accept");
+			exit(EXIT_FAILURE);
+		}
+		else
+		{
+			printf("gotten!\n");
+			break;
+		}
 	}
+	close(clientfd);
 	close(sockfd);
 	return 0;
 }
