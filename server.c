@@ -6,6 +6,8 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
+#define aport 9999
+
 int main()
 {
 	int sockfd;
@@ -18,13 +20,19 @@ int main()
 		exit(EXIT_FAILURE);
 	}
 	addr.sin_family=PF_INET;
-	addr.sin_port=htons(9999);
+	addr.sin_port=htons(aport);
 	addr.sin_addr.s_addr=inet_addr("192.168.130.98");
 	memset(&addr.sin_zero,0,sizeof(addr.sin_zero));
 	//bind
 	if(bind(sockfd,(struct sockaddr*) &addr,sizeof(struct sockaddr))==-1)
 	{
 		perror("bind");
+		exit(EXIT_FAILURE);
+	}
+
+	if(listen(sockfd,5)==-1)
+	{
+		perror("listen");
 		exit(EXIT_FAILURE);
 	}
 	close(sockfd);
