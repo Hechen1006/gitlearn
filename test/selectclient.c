@@ -1,8 +1,8 @@
 /*
  * @Author: hechen
- * @Date: 2021-07-08 14:16:10
+ * @Date: 2021-07-12 14:53:01
  * @LastEditors: hechen
- * @LastEditTime: 2021-07-12 14:50:10
+ * @LastEditTime: 2021-07-12 15:20:12
  * @Description: file content
  */
 #include <stdio.h>
@@ -34,28 +34,13 @@ int main()
 		perror("connect");
 		exit(EXIT_FAILURE);
 	}
-	char rdbuffer[50],wtbuffer[50];
-	char str[50]="hello from client!";
-	if(read(sockfd,rdbuffer,50)==-1)
-	{
-		printf("fail");
-		perror("read");
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		//for(int i=0;i<10;i++)
-		printf("rcv from server: %s",rdbuffer);
-		//printf("%d\n",*(rdbuffer+i));
-	}
-	/*
-	strcpy(wtbuffer,str);
-	if(write(sockfd,wtbuffer,sizeof(wtbuffer))==-1)
-	{
-		perror("write");
-		exit(EXIT_FAILURE);
-	}
-	*/
+	char wtbuffer[20]="hello from client!\n";
+    if(write(sockfd,wtbuffer,sizeof(wtbuffer))==-1)
+    {
+        printf("fail");
+        perror("write");
+        exit(EXIT_FAILURE);
+    }
 	close(sockfd);
 	return 0;
 }

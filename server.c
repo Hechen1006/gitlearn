@@ -1,3 +1,10 @@
+/*
+ * @Author: hechen
+ * @Date: 2021-07-08 14:16:10
+ * @LastEditors: hechen
+ * @LastEditTime: 2021-07-12 15:29:45
+ * @Description: file content
+ */
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -29,7 +36,7 @@ int main()
 	{
 		perror("bind");
 		exit(EXIT_FAILURE);
-	}
+	} 
 	while(1)
 	{
 		if(listen(sockfd,5)==-1)
